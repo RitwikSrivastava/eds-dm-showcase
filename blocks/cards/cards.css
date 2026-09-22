@@ -31,6 +31,12 @@
 }
 
 /* "card-tiles" section style: dense grid of image+heading tiles (no body copy) */
+.card-tiles h2 {
+  font-size: 2rem;
+  white-space: nowrap;
+  margin: 0 0 24px;
+}
+
 .card-tiles .cards > ul {
   display: flex;
   gap: 20px;

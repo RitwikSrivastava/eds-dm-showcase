@@ -32,10 +32,6 @@
   }
 }
 
-.teaser.block.right > .foreground {
-  margin-left: auto;
-}
-
 .teaser.block > .foreground > .text > .eyebrow {
   font-weight: 700;
   font-size: 0.75rem;
