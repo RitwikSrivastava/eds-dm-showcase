@@ -69,6 +69,15 @@
   font-size: 1.1rem;
 }
 
+.card-tiles .cards > ul > li h5 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.card-tiles .cards > ul > li h5 a:hover {
+  text-decoration: underline;
+}
+
 /* "home" section style: large 2-up image+heading+body+CTA cards */
 .home .cards > ul {
   display: flex;
