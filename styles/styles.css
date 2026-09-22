@@ -5,27 +5,36 @@
  * Section: CSS Properties
  *********************************** */
 :root {
-  /* Coffee-brand palette overrides (buttons/links/brand only - error/notification tokens
-     stay on the base red scale so validation states keep their meaning). */
-  --color-alias-brand-primary: #6f4518;
-  --color-alias-interactive-primary-enabled: #6f4518;
-  --color-alias-interactive-primary-hover: #5a3413;
-  --color-alias-interactive-primary-pressed: #432610;
-  --color-alias-interactive-secondary-enabled-foreground: #6f4518;
-  --color-alias-interactive-secondary-enabled-foreground-secondary: #6f4518;
-  --color-alias-interactive-secondary-hover-foreground: #5a3413;
-  --color-alias-interactive-secondary-hover-foreground-secondary: #5a3413;
+  /* Frescopa brand palette overrides (buttons/links/brand only - error/notification tokens
+     stay on the base red scale so validation states keep their meaning). Colors match the
+     real frescopa.coffee site: teal primary, maroon secondary/brand, dark maroon text. */
+  --frescopa-teal: #00647d;
+  --frescopa-teal-hover: #004f63;
+  --frescopa-teal-pressed: #003d4d;
+  --frescopa-maroon: #95351d;
+  --frescopa-maroon-hover: #7a2a17;
+  --frescopa-maroon-pressed: #5e2011;
+  --frescopa-text: #58181d;
+  --color-alias-brand-primary: var(--frescopa-teal);
+  --color-alias-interactive-primary-enabled: var(--frescopa-teal);
+  --color-alias-interactive-primary-hover: var(--frescopa-teal-hover);
+  --color-alias-interactive-primary-pressed: var(--frescopa-teal-pressed);
+  --color-alias-interactive-secondary-enabled-foreground: var(--frescopa-maroon);
+  --color-alias-interactive-secondary-enabled-foreground-secondary: var(--frescopa-maroon);
+  --color-alias-interactive-secondary-hover-foreground: var(--frescopa-maroon-hover);
+  --color-alias-interactive-secondary-hover-foreground-secondary: var(--frescopa-maroon-hover);
   --color-alias-interactive-secondary-hover-background: #f5e9dc;
-  --color-alias-interactive-secondary-pressed-foreground: #432610;
-  --color-alias-interactive-secondary-pressed-foreground-secondary: #432610;
+  --color-alias-interactive-secondary-pressed-foreground: var(--frescopa-maroon-pressed);
+  --color-alias-interactive-secondary-pressed-foreground-secondary: var(--frescopa-maroon-pressed);
   --color-alias-interactive-secondary-pressed-background: #eaddc9;
-  --color-alias-interactive-link-enabled-foreground: #6f4518;
-  --color-alias-interactive-link-hover-foreground: #5a3413;
-  --color-alias-interactive-link-pressed-foreground: #432610;
-  --color-alias-interactive-tertiary-enabled-foreground: #6f4518;
-  --color-alias-interactive-tertiary-hover-foreground: #5a3413;
-  --color-alias-interactive-tertiary-pressed-foreground: #432610;
-  --color-alias-tab-active: #6f4518;
+  --color-alias-interactive-link-enabled-foreground: var(--frescopa-text);
+  --color-alias-interactive-link-hover-foreground: var(--frescopa-maroon-hover);
+  --color-alias-interactive-link-pressed-foreground: var(--frescopa-maroon-pressed);
+  --color-alias-interactive-tertiary-enabled-foreground: var(--frescopa-teal);
+  --color-alias-interactive-tertiary-hover-foreground: var(--frescopa-teal-hover);
+  --color-alias-interactive-tertiary-pressed-foreground: var(--frescopa-teal-pressed);
+  --color-alias-tab-active: var(--frescopa-teal);
+  --frescopa-heading-font: Georgia, 'Times New Roman', serif;
 
   --z-index-level-00: 0;
   --z-index-level-01: 100;
@@ -1277,4 +1286,17 @@ html {
 
 .frescopa-background-black {
   background-color: #2c2c2c;
+}
+
+/* Frescopa clone typography: serif headings in the dark maroon brand text color,
+   matching frescopa.coffee's own look (scoped to main content, not site chrome). */
+main h1,
+main h2,
+main h3,
+main h4,
+main h5,
+main h6 {
+  font-family: var(--frescopa-heading-font);
+  color: var(--frescopa-text);
+  font-weight: 400;
 }

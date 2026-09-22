@@ -5,15 +5,14 @@
 .header.block {
   position: relative;
   z-index: var(--z-index-level-03);
-  background-color: var(--color-alias-surface-background-primary);
+  background-color: #fff;
   border-bottom: var(--border-width-base-1-0) solid var(--color-alias-border-subtle);
 }
 
 .header.block .top-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-alias-fixed-150);
+  gap: var(--spacing-alias-fixed-300);
   padding: var(--spacing-alias-fixed-150) var(--spacing-alias-responsive-layout-margin-navigation);
 }
 
@@ -22,6 +21,9 @@
   align-items: center;
   gap: var(--spacing-alias-fixed-150);
   text-decoration: none;
+  font-family: var(--frescopa-heading-font, Georgia, serif);
+  font-size: 1.5rem;
+  color: var(--frescopa-text, #58181d);
 }
 
 .header.block .header-brand img {
@@ -38,6 +40,7 @@
   border: 0;
   background: none;
   cursor: pointer;
+  margin-left: auto;
 }
 
 .header.block .mobile-nav-toggle .mask-icon {
@@ -52,7 +55,7 @@
 }
 
 .header.block .navigation-bar {
-  border-top: var(--border-width-base-1-0) solid var(--color-alias-border-subtle);
+  display: flex;
 }
 
 .header.block .main-navigation {
@@ -60,13 +63,13 @@
   flex-wrap: wrap;
   gap: var(--spacing-alias-fixed-300);
   margin: 0;
-  padding: var(--spacing-alias-fixed-150) var(--spacing-alias-responsive-layout-margin-navigation);
+  padding: 0;
   list-style: none;
 }
 
 .header.block .navigation-menu a {
   text-decoration: none;
-  color: var(--color-alias-text-primary, currentcolor);
+  color: var(--frescopa-text, #58181d);
   font-weight: 600;
 }
 
@@ -77,6 +80,7 @@
 .header.block .header-supporting {
   padding: 0 var(--spacing-alias-responsive-layout-margin-navigation)
     var(--spacing-alias-fixed-150);
+  margin-left: auto;
 }
 
 @media (width <= 63.999rem) {
@@ -86,14 +90,17 @@
 
   .header.block .navigation-bar {
     display: none;
+    width: 100%;
+    order: 3;
   }
 
   .header.block.mobile-menu-open .navigation-bar {
-    display: block;
+    display: flex;
   }
 
   .header.block .main-navigation {
     flex-direction: column;
     gap: var(--spacing-alias-fixed-150);
+    padding: var(--spacing-alias-fixed-150) 0;
   }
 }

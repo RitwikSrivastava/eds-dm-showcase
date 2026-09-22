@@ -40,28 +40,29 @@
   font-weight: 700;
   font-size: 0.75rem;
   letter-spacing: 0.06em;
-  color: #fff;
+  color: var(--frescopa-text, #58181d);
   text-transform: uppercase;
 }
 
 .teaser.block > .foreground > .text > .title h3 {
   margin: 0.25em 0 0.5em;
-  color: #fff;
+  color: var(--frescopa-text, #58181d);
   font-size: 2.25rem;
   line-height: 1.15;
 }
 
+/* "Dark" theme means the background is dark/photographic - use light text for contrast. */
 .teaser.block.dark > .foreground > .text > .title h3,
 .teaser.block.dark > .foreground > .text > .eyebrow {
-  color: #2c2c2c;
-}
-
-.teaser.block > .foreground > .text > .long-description {
   color: #fff;
 }
 
+.teaser.block > .foreground > .text > .long-description {
+  color: var(--frescopa-text, #58181d);
+}
+
 .teaser.block.dark > .foreground > .text > .long-description {
-  color: #2c2c2c;
+  color: #fff;
 }
 
 .teaser.block > .foreground > .text > .cta {
@@ -82,22 +83,22 @@
 }
 
 .teaser.block > .foreground > .text > .cta a.button.primary {
-  background-color: #fff;
-  color: #2c2c2c;
+  background-color: var(--frescopa-teal, #00647d);
+  color: #fff;
 }
 
 .teaser.block > .foreground > .text > .cta a.button.primary:hover {
-  background-color: #f4e9dc;
+  background-color: var(--frescopa-teal-hover, #004f63);
 }
 
 .teaser.block > .foreground > .text > .cta a.button.secondary {
   background-color: transparent;
   border-color: currentcolor;
-  color: #fff;
+  color: var(--frescopa-text, #58181d);
 }
 
 .teaser.block.dark > .foreground > .text > .cta a.button.secondary {
-  color: #2c2c2c;
+  color: #fff;
 }
 
 .teaser.block > .background {

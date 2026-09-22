@@ -48,9 +48,9 @@ export default async function decorate(block) {
   toggleButton.addEventListener('click', () => toggleMobileMenu(block, toggleButton, nav));
 
   const topBar = createElementWithClasses('div', 'top-bar');
-  topBar.append(brandSection || '', toggleButton);
+  topBar.append(brandSection || '', nav, toggleButton);
 
-  block.append(topBar, nav);
+  block.append(topBar);
 
   if (supportingSection) {
     supportingSection.classList.add('header-supporting');

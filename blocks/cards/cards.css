@@ -40,27 +40,28 @@
 }
 
 .card-tiles .cards > ul > li {
-  width: 224px;
+  width: 240px;
   margin: 16px 0;
-  padding-top: 30px;
+  padding: 32px 20px 28px;
   border: 0;
   border-radius: 12px;
-  overflow: hidden;
   box-shadow: 0 10px 20px rgb(0 0 0 / 12%);
 }
 
 .card-tiles .cards-card-image {
-  min-width: 224px;
+  min-width: 200px;
 }
 
 .card-tiles .cards > ul > li img {
   aspect-ratio: auto;
   object-fit: contain;
-  max-height: 100px;
+  max-height: 120px;
 }
 
 .card-tiles .cards > ul > li h5 {
+  margin: 20px 0 0;
   text-align: center;
+  font-size: 1.1rem;
 }
 
 /* "home" section style: large 2-up image+heading+body+CTA cards */
