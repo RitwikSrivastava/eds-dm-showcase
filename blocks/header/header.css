@@ -78,9 +78,22 @@
 }
 
 .header.block .header-supporting {
-  padding: 0 var(--spacing-alias-responsive-layout-margin-navigation)
-    var(--spacing-alias-fixed-150);
   margin-left: auto;
+}
+
+.header.block .header-supporting .help.block a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-alias-fixed-50, 0.25rem);
+  text-decoration: none;
+  color: var(--frescopa-text, #58181d);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.header.block .header-supporting .help.block img {
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 @media (width <= 63.999rem) {

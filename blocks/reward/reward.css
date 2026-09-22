@@ -15,15 +15,14 @@
 
 .reward.block > .background {
   position: absolute;
-  inset: 0 auto 0 0;
-  width: 100px;
+  inset: 0;
 }
 
 .reward.block > .background picture,
 .reward.block > .background img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .reward.block > .reward-content {
@@ -34,7 +33,7 @@
   justify-content: space-between;
   gap: 16px;
   width: 100%;
-  padding: 24px 32px 24px 120px;
+  padding: 24px 32px;
   color: #fff;
 }
 
