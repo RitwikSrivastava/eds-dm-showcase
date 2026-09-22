@@ -23,7 +23,7 @@
         {
           "component": "custom-asset-namespace:custom-asset",
           "valueType": "string",
-          "name": "fileReference",
+          "name": "image",
           "label": "Banner Image",
           "description": "Select a Dynamic Media delivery URL via the custom asset picker.",
           "configUrl": "https://main--eds-dm-showcase--RitwikSrivastava.aem.page/tools/asset-selector/image.config.json"
@@ -31,12 +31,12 @@
         {
           "component": "custom-asset-namespace:custom-asset-mimetype",
           "valueType": "string",
-          "name": "fileReferenceMimeType"
+          "name": "imageMimeType"
         },
         {
           "component": "text",
           "valueType": "string",
-          "name": "fileReferenceAlt",
+          "name": "imageAlt",
           "value": "",
           "label": "Image Alt Text"
         },
