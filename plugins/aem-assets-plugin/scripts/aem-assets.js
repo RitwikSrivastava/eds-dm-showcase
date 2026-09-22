@@ -120,7 +120,14 @@ function createWebOptimizedDMOpenAPIUrl(url) {
  */
 function getImageSrcUrlAndAlt(element) {
   if (element.tagName === 'A') {
-    return { url: element.getAttribute('href'), alt: element.getAttribute('title') || '' };
+    const href = element.getAttribute('href');
+    // AEM's native rendering for a paired image+imageAlt field puts the alt text as the
+    // anchor's own text content rather than a title attribute (unlike hand-authored links,
+    // where title is the convention) - fall back to it, but only when it's not just the raw
+    // href showing through (e.g. cards' image field, which has no separate alt field at all).
+    const text = element.textContent?.trim() || '';
+    const alt = element.getAttribute('title') || (text && text !== href ? text : '');
+    return { url: href, alt };
   }
 
   if (element.tagName === 'IMG') {
