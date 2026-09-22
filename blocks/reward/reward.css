@@ -1,10 +1,12 @@
 .reward.block {
   position: relative;
   overflow: hidden;
+  width: 100%;
   border-radius: 12px;
   min-height: 180px;
   display: flex;
   align-items: center;
+  background-color: #6f4518;
 }
 
 .reward.block > .background {
@@ -43,8 +45,25 @@
 .reward.block .detail {
   margin: 0;
   flex: 1 1 auto;
+  min-width: 240px;
 }
 
 .reward.block .cta a.button {
-  border: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75em 1.75em;
+  border-radius: 100px;
+  border: 2px solid #fff;
+  background-color: transparent;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.reward.block.dark .cta a.button {
+  border-color: #2c2c2c;
+  color: #2c2c2c;
 }

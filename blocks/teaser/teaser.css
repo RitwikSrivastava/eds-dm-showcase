@@ -1,24 +1,39 @@
 .teaser.block {
   position: relative;
   overflow: hidden;
-  min-height: 275px;
+  width: 100%;
+  min-height: 320px;
   border-radius: 12px;
+}
+
+@media (width >= 900px) {
+  .teaser.block {
+    min-height: 490px;
+  }
+}
+
+.teaser.block.half-height {
+  min-height: 200px;
 }
 
 .teaser.block > .foreground {
   position: relative;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
   max-width: 540px;
   padding: 40px 24px;
 }
 
 @media (width >= 900px) {
   .teaser.block > .foreground {
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    padding: 40px 60px;
+    padding: 40px 87px;
   }
+}
+
+.teaser.block.right > .foreground {
+  margin-left: auto;
 }
 
 .teaser.block > .foreground > .text > .eyebrow {
@@ -30,10 +45,10 @@
 }
 
 .teaser.block > .foreground > .text > .title h3 {
-  margin: 0;
+  margin: 0.25em 0 0.5em;
   color: #fff;
-  font-size: 2rem;
-  line-height: 1.1;
+  font-size: 2.25rem;
+  line-height: 1.15;
 }
 
 .teaser.block.dark > .foreground > .text > .title h3,
@@ -49,17 +64,40 @@
   color: #2c2c2c;
 }
 
+.teaser.block > .foreground > .text > .cta {
+  margin-top: 0.5em;
+}
+
 .teaser.block > .foreground > .text > .cta a.button {
-  border: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75em 1.75em;
+  border-radius: 100px;
+  border: 2px solid transparent;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.teaser.block > .foreground > .spacer {
-  order: 1;
-  flex-grow: 2;
+.teaser.block > .foreground > .text > .cta a.button.primary {
+  background-color: #fff;
+  color: #2c2c2c;
 }
 
-.teaser.block.right > .foreground > .spacer {
-  order: 0;
+.teaser.block > .foreground > .text > .cta a.button.primary:hover {
+  background-color: #f4e9dc;
+}
+
+.teaser.block > .foreground > .text > .cta a.button.secondary {
+  background-color: transparent;
+  border-color: currentcolor;
+  color: #fff;
+}
+
+.teaser.block.dark > .foreground > .text > .cta a.button.secondary {
+  color: #2c2c2c;
 }
 
 .teaser.block > .background {
