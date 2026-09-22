@@ -25,7 +25,7 @@
           "name": "image",
           "label": "DM Image",
           "description": "Select a Dynamic Media delivery URL via the custom asset picker.",
-          "configUrl": "https://main--uewithoutsdk--RitwikSrivastava.aem.page/tools/asset-selector/image.config.json",
+          "configUrl": "https://main--eds-dm-showcase--RitwikSrivastava.aem.page/tools/asset-selector/image.config.json",
           "valueType": "string"
         },
         {

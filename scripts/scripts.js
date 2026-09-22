@@ -12,7 +12,7 @@ import {
 } from './aem.js';
 import assetsInit from './aem-assets-plugin-support.js';
 
-const CONTENT_ROOT_PATH = '/content/Gazal-ue-site';
+const CONTENT_ROOT_PATH = '/content/eds-dm-showcase';
 
 /**
  * Helper function that converts an AEM path into an EDS path.
@@ -319,31 +319,6 @@ async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
-}
-
-// Initialize eds_config for widgets
-if (!window.eds_config) {
-  window.eds_config = {
-    widgets: {
-      env: 'production',
-      login: {
-        oauthInitBundleUri: 'https://cdn.sit.qantasloyalty.com/appcache/qfa-qff-oauth-login/master/0.0.0/oauth.js',
-        oauthBundleUri: 'https://cdn.sit.qantasloyalty.com/appcache/qdd-oauth-login/master/0.0.0/bundle.js',
-        oauthLoginRibbonBundleUri: 'https://cdn.sit.qantasloyalty.com/appcache/qdd-login-ribbon/master/0.0.0/bundle.js',
-      },
-      shopping_cart: {
-        scriptPath: 'https://static.qcom-stg.qantastesting.com/ams02/a974/62/dev/eds-master/shoppingcart_widget/current/app.js',
-      },
-    },
-    regional_selector: {
-      flags: {
-        'en-au': 'runway_country_flag_australia',
-        'en-us': 'runway_country_flag_united_states',
-        'en-gb': 'runway_country_flag_united_kingdom',
-        'en-nz': 'runway_country_flag_new_zealand',
-      },
-    },
-  };
 }
 
 await assetsInit();

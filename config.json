@@ -10,7 +10,7 @@
     "expiryOptions": {
         "allowSelectionAndDrag": false
     },
-    "rootPath": "/content/dam/ritsriva-ue/icons",
+    "rootPath": "/content/dam/eds-dm-showcase/icons",
     "assetDomainMapping": {
         "delivery-p66302-e574366.adobeaemcloud.com": "dynamicmedia-openapi.scene7.com"
     },

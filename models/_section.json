@@ -33,6 +33,14 @@
             {
               "name": "Highlight",
               "value": "highlight"
+            },
+            {
+              "name": "Card Tiles",
+              "value": "card-tiles"
+            },
+            {
+              "name": "Home Cards",
+              "value": "home"
             }
           ]
         }
@@ -52,7 +60,10 @@
         "columns",
         "fragment",
         "dm-image",
-        "image-and-text-container"
+        "image-and-text-container",
+        "teaser",
+        "reward",
+        "store-locator"
       ]
     }
   ]

@@ -1,0 +1,50 @@
+.reward.block {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+}
+
+.reward.block > .background {
+  position: absolute;
+  inset: 0;
+}
+
+.reward.block > .background picture,
+.reward.block > .background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reward.block > .reward-content {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 24px 32px;
+  color: #fff;
+}
+
+.reward.block.dark > .reward-content {
+  color: #2c2c2c;
+}
+
+.reward.block .headline {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.reward.block .detail {
+  margin: 0;
+  flex: 1 1 auto;
+}
+
+.reward.block .cta a.button {
+  border: 0;
+}

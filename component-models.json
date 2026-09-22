@@ -136,6 +136,14 @@
           {
             "name": "Highlight",
             "value": "highlight"
+          },
+          {
+            "name": "Card Tiles",
+            "value": "card-tiles"
+          },
+          {
+            "name": "Home Cards",
+            "value": "home"
           }
         ]
       }
@@ -145,11 +153,17 @@
     "id": "card",
     "fields": [
       {
-        "component": "reference",
-        "valueType": "string",
+        "component": "custom-asset-namespace:custom-asset",
         "name": "image",
         "label": "Image",
-        "multi": false
+        "description": "Select a Dynamic Media delivery URL via the custom asset picker.",
+        "configUrl": "https://main--eds-dm-showcase--RitwikSrivastava.aem.page/tools/asset-selector/image.config.json",
+        "valueType": "string"
+      },
+      {
+        "component": "custom-asset-namespace:custom-asset-mimetype",
+        "valueType": "string",
+        "name": "imageMimeType"
       },
       {
         "component": "richtext",
@@ -187,7 +201,7 @@
         "name": "image",
         "label": "DM Image",
         "description": "Select a Dynamic Media delivery URL via the custom asset picker.",
-        "configUrl": "https://main--uewithoutsdk--RitwikSrivastava.aem.page/tools/asset-selector/image.config.json",
+        "configUrl": "https://main--eds-dm-showcase--RitwikSrivastava.aem.page/tools/asset-selector/image.config.json",
         "valueType": "string"
       },
       {
@@ -256,7 +270,7 @@
         "component": "custom-asset-namespace:custom-asset",
         "name": "image",
         "label": "Image",
-        "configUrl": "https://main--uewithoutsdk--RitwikSrivastava.aem.page/tools/asset-selector/image.config.json",
+        "configUrl": "https://main--eds-dm-showcase--RitwikSrivastava.aem.page/tools/asset-selector/image.config.json",
         "valueType": "string"
       },
       {
@@ -468,6 +482,246 @@
         "name": "campaignCode",
         "label": "Campaign Code",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "reward",
+    "fields": [
+      {
+        "component": "custom-asset-namespace:custom-asset",
+        "valueType": "string",
+        "name": "fileReference",
+        "label": "Banner Image",
+        "description": "Select a Dynamic Media delivery URL via the custom asset picker.",
+        "configUrl": "https://main--eds-dm-showcase--RitwikSrivastava.aem.page/tools/asset-selector/image.config.json"
+      },
+      {
+        "component": "custom-asset-namespace:custom-asset-mimetype",
+        "valueType": "string",
+        "name": "fileReferenceMimeType"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "fileReferenceAlt",
+        "value": "",
+        "label": "Image Alt Text"
+      },
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Theme",
+            "children": [
+              {
+                "name": "Light",
+                "value": "light"
+              },
+              {
+                "name": "Dark",
+                "value": "dark"
+              }
+            ]
+          },
+          {
+            "name": "Alignment",
+            "children": [
+              {
+                "name": "Left",
+                "value": "left"
+              },
+              {
+                "name": "Right",
+                "value": "right"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "value": "",
+        "label": "Heading"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "longDescr",
+        "value": "",
+        "label": "Description"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "cta",
+        "value": "",
+        "label": "Call to Action",
+        "description": "Author a link; wrap it in bold for a primary button, italic for a secondary button."
+      }
+    ]
+  },
+  {
+    "id": "store-locator",
+    "fields": [
+      {
+        "component": "custom-asset-namespace:custom-asset",
+        "valueType": "string",
+        "name": "fileReference",
+        "label": "Background Image",
+        "description": "Select a Dynamic Media delivery URL via the custom asset picker.",
+        "configUrl": "https://main--eds-dm-showcase--RitwikSrivastava.aem.page/tools/asset-selector/image.config.json"
+      },
+      {
+        "component": "custom-asset-namespace:custom-asset-mimetype",
+        "valueType": "string",
+        "name": "fileReferenceMimeType"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "fileReferenceAlt",
+        "value": "",
+        "label": "Image Alt Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "headline",
+        "value": "",
+        "label": "Headline"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "searchPlaceholder",
+        "value": "",
+        "label": "Search Placeholder"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cta",
+        "value": "",
+        "label": "Search Button Text"
+      }
+    ]
+  },
+  {
+    "id": "teaser",
+    "fields": [
+      {
+        "component": "custom-asset-namespace:custom-asset",
+        "valueType": "string",
+        "name": "fileReference",
+        "label": "Background Image",
+        "description": "Select a Dynamic Media delivery URL via the custom asset picker.",
+        "configUrl": "https://main--eds-dm-showcase--RitwikSrivastava.aem.page/tools/asset-selector/image.config.json"
+      },
+      {
+        "component": "custom-asset-namespace:custom-asset-mimetype",
+        "valueType": "string",
+        "name": "fileReferenceMimeType"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "fileReferenceAlt",
+        "value": "",
+        "label": "Image Alt Text"
+      },
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Theme",
+            "children": [
+              {
+                "name": "Light",
+                "value": "light"
+              },
+              {
+                "name": "Dark",
+                "value": "dark"
+              }
+            ]
+          },
+          {
+            "name": "Alignment",
+            "children": [
+              {
+                "name": "Left",
+                "value": "left"
+              },
+              {
+                "name": "Right",
+                "value": "right"
+              }
+            ]
+          },
+          {
+            "name": "Background Color",
+            "children": [
+              {
+                "name": "Frescopa Red",
+                "value": "frescopa-background-red"
+              },
+              {
+                "name": "Frescopa Yellow",
+                "value": "frescopa-background-yellow"
+              },
+              {
+                "name": "Frescopa Blue",
+                "value": "frescopa-background-blue"
+              },
+              {
+                "name": "Frescopa Beige",
+                "value": "frescopa-background-beige"
+              },
+              {
+                "name": "Frescopa Black",
+                "value": "frescopa-background-black"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "eyebrow",
+        "value": "",
+        "label": "Eyebrow"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "value": "",
+        "label": "Heading"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "longDescr",
+        "value": "",
+        "label": "Description"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "cta",
+        "value": "",
+        "label": "Call to Action",
+        "description": "Author a link; wrap it in bold for a primary button, italic for a secondary button."
       }
     ]
   }

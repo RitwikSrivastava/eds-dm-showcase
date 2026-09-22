@@ -1,7 +1,7 @@
 .skip-to-elements .cta-link,
 header.eds-block,
 footer.eds-block {
-  font-family: 'Qantas Sans', Helvetica, sans-serif;
+  font-family: 'Roboto', Helvetica, sans-serif;
   font-size: var(--font-size-base-16);
   -webkit-font-smoothing: antialiased;
   background-color: var(--color-alias-surface-background-primary);
@@ -56,7 +56,7 @@ footer.eds-block {
   }
 
   * {
-    font-family: 'Qantas Sans', Helvetica, sans-serif !important;
+    font-family: 'Roboto', Helvetica, sans-serif !important;
   }
 }
 

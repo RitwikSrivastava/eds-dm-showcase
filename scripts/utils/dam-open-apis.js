@@ -1,13 +1,4 @@
 import { isAuthorMode } from './common-utils.js';
-import { getMetadata } from '../aem.js';
-
-// Append Qantas Image Version if pressent
-function appendQantasImageVersion(url) {
-  const qiv = getMetadata('qiv');
-  if (qiv) {
-    url?.searchParams?.set('qiv', qiv);
-  }
-}
 
 export function buildDamUrl(imgSrc) {
   if (!imgSrc) throw new TypeError('buildDamUrl: imgSrc is required');
@@ -44,8 +35,6 @@ export function buildDamUrl(imgSrc) {
   urlObj.searchParams?.delete('assetname');
   // Set default format to AVIF to match the default .avif extension
   urlObj.searchParams?.set('format', 'avif');
-  // Append Qantas Image Version if pressent
-  appendQantasImageVersion(urlObj);
 
   const imgUrl = `${origin}${path}${urlObj.search}`;
   return imgUrl;

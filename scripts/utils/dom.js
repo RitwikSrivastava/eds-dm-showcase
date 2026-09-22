@@ -123,6 +123,23 @@ const isSvg = (input) => {
   return false;
 };
 
+/**
+ * Reads a block field's text, preferring Universal Editor's data-aue-prop
+ * annotation (robust to row reordering/live editing) and falling back to a
+ * fixed positional row index (for content authored outside UE).
+ * @param {Element} block
+ * @param {string} propName
+ * @param {Element|undefined} positionalRow
+ * @returns {string}
+ */
+const getFieldText = (block, propName, positionalRow) => {
+  const ueRow = block.querySelector(`[data-aue-prop="${propName}"]`);
+  if (ueRow) {
+    return ueRow.textContent?.trim() || '';
+  }
+  return positionalRow?.querySelector('div')?.textContent?.trim() || '';
+};
+
 export {
   isFieldTrue,
   getTextContent,
@@ -136,4 +153,5 @@ export {
   getMaskedIconElement,
   getHtmlContent,
   isSvg,
+  getFieldText,
 };

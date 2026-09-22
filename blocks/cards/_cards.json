@@ -36,11 +36,17 @@
       "id": "card",
       "fields": [
         {
-          "component": "reference",
-          "valueType": "string",
+          "component": "custom-asset-namespace:custom-asset",
           "name": "image",
           "label": "Image",
-          "multi": false
+          "description": "Select a Dynamic Media delivery URL via the custom asset picker.",
+          "configUrl": "https://main--eds-dm-showcase--RitwikSrivastava.aem.page/tools/asset-selector/image.config.json",
+          "valueType": "string"
+        },
+        {
+          "component": "custom-asset-namespace:custom-asset-mimetype",
+          "valueType": "string",
+          "name": "imageMimeType"
         },
         {
           "component": "richtext",

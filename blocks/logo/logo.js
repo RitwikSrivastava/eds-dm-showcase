@@ -13,7 +13,7 @@ const decorate = (block) => {
   };
 
   const iconText = getTextContent(unwrap(iconCol))?.trim();
-  const logoAltText = getTextContent(unwrap(altTextCol))?.trim() || 'Home, Qantas Airways Logo';
+  const logoAltText = getTextContent(unwrap(altTextCol))?.trim() || 'Home';
   const targetHref = getTextContent(unwrap(urlCol))?.trim() || '/';
 
   let imgMarkup = '';

@@ -1,13 +1,6 @@
 import { buildDamUrl } from '../../scripts/utils/dam-open-apis.js';
 import getAssetImageUrlFromRow from '../../scripts/utils/asset-row-url.js';
-
-function getFieldText(block, propName, positionalRow) {
-  const ueRow = block.querySelector(`[data-aue-prop="${propName}"]`);
-  if (ueRow) {
-    return ueRow.textContent?.trim() || '';
-  }
-  return positionalRow?.querySelector('div')?.textContent?.trim() || '';
-}
+import { getFieldText } from '../../scripts/utils/dom.js';
 
 function toBoolean(value) {
   return /^true$/i.test(value || '');

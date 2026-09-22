@@ -1,6 +1,9 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
+// Card images are authored via the custom DM asset picker (Approach B): decorateExternalImages
+// has already rewritten the authored link into a fully-optimized <picture> before this block's
+// decorate() runs, so there's no local re-optimization step here - see hero.js for the same
+// pattern.
 export default function decorate(block) {
   /* change to ul, li */
   const ul = document.createElement('ul');
@@ -13,13 +16,6 @@ export default function decorate(block) {
       else div.className = 'cards-card-body';
     });
     ul.append(li);
-  });
-  ul.querySelectorAll('picture > img').forEach((img) => {
-    const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [
-      { width: '750' },
-    ]);
-    moveInstrumentation(img, optimizedPic.querySelector('img'));
-    img.closest('picture').replaceWith(optimizedPic);
   });
   block.replaceChildren(ul);
 }

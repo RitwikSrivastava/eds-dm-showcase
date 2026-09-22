@@ -1,0 +1,75 @@
+.teaser.block {
+  position: relative;
+  overflow: hidden;
+  min-height: 275px;
+  border-radius: 12px;
+}
+
+.teaser.block > .foreground {
+  position: relative;
+  display: flex;
+  max-width: 540px;
+  padding: 40px 24px;
+}
+
+@media (width >= 900px) {
+  .teaser.block > .foreground {
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding: 40px 60px;
+  }
+}
+
+.teaser.block > .foreground > .text > .eyebrow {
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.teaser.block > .foreground > .text > .title h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+.teaser.block.dark > .foreground > .text > .title h3,
+.teaser.block.dark > .foreground > .text > .eyebrow {
+  color: #2c2c2c;
+}
+
+.teaser.block > .foreground > .text > .long-description {
+  color: #fff;
+}
+
+.teaser.block.dark > .foreground > .text > .long-description {
+  color: #2c2c2c;
+}
+
+.teaser.block > .foreground > .text > .cta a.button {
+  border: 0;
+}
+
+.teaser.block > .foreground > .spacer {
+  order: 1;
+  flex-grow: 2;
+}
+
+.teaser.block.right > .foreground > .spacer {
+  order: 0;
+}
+
+.teaser.block > .background {
+  position: absolute;
+  inset: 0;
+}
+
+.teaser.block > .background picture,
+.teaser.block > .background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

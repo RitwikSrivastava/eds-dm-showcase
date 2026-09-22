@@ -29,3 +29,72 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
+
+/* "card-tiles" section style: dense grid of image+heading tiles (no body copy) */
+.card-tiles .cards > ul {
+  display: flex;
+  gap: 20px;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  grid-template-columns: none;
+}
+
+.card-tiles .cards > ul > li {
+  width: 224px;
+  margin: 16px 0;
+  padding-top: 30px;
+  border: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgb(0 0 0 / 12%);
+}
+
+.card-tiles .cards-card-image {
+  min-width: 224px;
+}
+
+.card-tiles .cards > ul > li img {
+  aspect-ratio: auto;
+  object-fit: contain;
+  max-height: 100px;
+}
+
+.card-tiles .cards > ul > li h5 {
+  text-align: center;
+}
+
+/* "home" section style: large 2-up image+heading+body+CTA cards */
+.home .cards > ul {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  grid-template-columns: none;
+}
+
+.home .cards > ul > li {
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgb(0 0 0 / 12%);
+}
+
+.home .cards-card-image {
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+}
+
+.home .cards-card-image img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  max-height: 360px;
+}
+
+.home .cards-card-body {
+  margin: 30px 30px 34px;
+}
+
+@media (width >= 900px) {
+  .home .cards > ul {
+    flex-direction: row;
+  }
+}

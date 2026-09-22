@@ -4,8 +4,8 @@ const decorate = (block) => {
 
   // Try to get text and URL from block
   let label = 'Help';
-  let targetHref = 'https://help.qantas.com/support/s/';
-  
+  let targetHref = '#';
+
   // Check if there's a link in the block
   const anchor = block.querySelector('a');
   if (anchor) {
