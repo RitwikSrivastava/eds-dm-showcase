@@ -73,6 +73,7 @@
 .home .cards > ul {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   gap: 40px;
   grid-template-columns: none;
 }
@@ -102,5 +103,10 @@
 @media (width >= 900px) {
   .home .cards > ul {
     flex-direction: row;
+  }
+
+  .home .cards > ul > li {
+    flex: 1 1 calc(50% - 20px);
+    min-width: 320px;
   }
 }

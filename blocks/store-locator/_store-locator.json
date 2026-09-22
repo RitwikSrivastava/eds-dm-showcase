@@ -45,6 +45,13 @@
         {
           "component": "text",
           "valueType": "string",
+          "name": "subhead",
+          "value": "",
+          "label": "Subhead / CTA Text"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
           "name": "searchPlaceholder",
           "value": "",
           "label": "Search Placeholder"

@@ -6,10 +6,11 @@ import { getDecoratedPicture, getFieldText } from '../../scripts/utils/dom.js';
 export default function decorate(block) {
   // fileReferenceMimeType/fileReferenceAlt are consumed by AEM's own block rendering
   // (baked into the image row's <picture>) - they never produce their own row.
-  const [imageRow, headlineRow, placeholderRow, ctaRow] = [...block.children];
+  const [imageRow, headlineRow, subheadRow, placeholderRow, ctaRow] = [...block.children];
 
   const picture = getDecoratedPicture(imageRow);
   const headline = getFieldText(block, 'headline', headlineRow);
+  const subhead = getFieldText(block, 'subhead', subheadRow);
   const searchPlaceholder = getFieldText(block, 'searchPlaceholder', placeholderRow);
   const cta = getFieldText(block, 'cta', ctaRow);
 
@@ -17,6 +18,7 @@ export default function decorate(block) {
     <div class="background">${picture ? picture.outerHTML : ''}</div>
     <div class="sidepanel">
       ${headline ? `<h3 class="sidepanel-title">${headline}</h3>` : ''}
+      ${subhead ? `<p class="sidepanel-subhead">${subhead}</p>` : ''}
       <div class="search">
         <input class="search-input" type="text" placeholder="${searchPlaceholder}" disabled>
         <button class="search-button" type="button" disabled>${cta}</button>

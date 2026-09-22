@@ -36,6 +36,15 @@
   margin: 0;
   max-width: 265px;
   font-size: 1.75rem;
+  color: #fff;
+}
+
+.store-locator.block .sidepanel-subhead {
+  margin: 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
 }
 
 .store-locator.block .search {
