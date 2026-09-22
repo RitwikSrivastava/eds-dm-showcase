@@ -1,10 +1,10 @@
 {
   "mappings": [
-    "/content/uewithoutsdk/:/",
-    "/content/uewithoutsdk/configuration:/.helix/config.json",
-    "/content/uewithoutsdk/metadata:/metadata.json"
+    "/content/eds-dm-showcase/:/",
+    "/content/eds-dm-showcase/configuration:/.helix/config.json",
+    "/content/eds-dm-showcase/metadata:/metadata.json"
   ],
   "includes": [
-    "/content/uewithoutsdk/"
+    "/content/eds-dm-showcase/"
   ]
 }
