@@ -1,0 +1,151 @@
+{
+  "definitions": [
+    {
+      "title": "Image and Text Container",
+      "id": "image-and-text-container",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Image and Text Container",
+              "filter": "image-and-text-container"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Image and Text Item",
+      "id": "image-and-text-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Image and Text Item",
+              "model": "image-and-text-item"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "image-and-text-container",
+      "fields": [
+        {
+          "component": "select",
+          "name": "layout",
+          "label": "Layout",
+          "options": [
+            { "name": "1 Column", "value": "layout-1-col" },
+            { "name": "2 Columns", "value": "layout-2-col" },
+            { "name": "3 Columns", "value": "layout-3-col" },
+            { "name": "4 Columns", "value": "layout-4-col" }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "imageAlignment",
+          "label": "Image Alignment",
+          "options": [
+            { "name": "Alternate Right Aligned (default)", "value": "" },
+            { "name": "All Left Aligned", "value": "all-left-aligned" },
+            { "name": "All Right Aligned", "value": "all-right-aligned" },
+            { "name": "Alternate Left Aligned", "value": "alternate-left-aligned" }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "firstArticleHighlighted",
+          "label": "Highlight First Article",
+          "options": [
+            { "name": "No", "value": "" },
+            { "name": "Yes", "value": "first-article-highlighted" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "image-and-text-item",
+      "fields": [
+        {
+          "component": "custom-asset-namespace:custom-asset",
+          "name": "image",
+          "label": "Image",
+          "configUrl": "https://main--uewithoutsdk--RitwikSrivastava.aem.page/tools/asset-selector/image.config.json",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "altHidden",
+          "label": "Hide Alt Text (true/false)",
+          "valueType": "string",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "name": "caption",
+          "label": "Caption",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "badge",
+          "label": "Badge",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "category",
+          "label": "Category",
+          "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "name": "title",
+          "label": "Title",
+          "value": "",
+          "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "name": "intro",
+          "label": "Intro Text",
+          "value": "",
+          "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "name": "body",
+          "label": "Body Text",
+          "value": "",
+          "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "name": "ctas",
+          "label": "Links / CTAs",
+          "value": "",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "campaignCode",
+          "label": "Campaign Code",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "image-and-text-container",
+      "components": [
+        "image-and-text-item"
+      ]
+    }
+  ]
+}

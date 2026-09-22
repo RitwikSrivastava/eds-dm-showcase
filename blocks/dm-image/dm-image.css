@@ -1,0 +1,9 @@
+.dm-image.block {
+  display: block;
+}
+
+.dm-image.block img {
+  display: block;
+  width: 100%;
+  height: auto;
+}

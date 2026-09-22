@@ -1,0 +1,8 @@
+{
+  "/tools/asset-selector/image.config.json": [
+    {
+      "key": "access-control-allow-origin",
+      "value": "https://experience.adobe.com"
+    }
+  ]
+}

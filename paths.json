@@ -1,0 +1,10 @@
+{
+  "mappings": [
+    "/content/uewithoutsdk/:/",
+    "/content/uewithoutsdk/configuration:/.helix/config.json",
+    "/content/uewithoutsdk/metadata:/metadata.json"
+  ],
+  "includes": [
+    "/content/uewithoutsdk/"
+  ]
+}

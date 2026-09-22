@@ -1,0 +1,26 @@
+.hide-shopping-cart {
+  display: none;
+}
+
+.shopping-cart-widget .cart-icon-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #323232;
+  transition: opacity 0.2s;
+}
+
+.shopping-cart-widget .cart-icon-fallback:hover {
+  opacity: 0.7;
+}
+
+.shopping-cart-widget .cart-icon-fallback svg {
+  width: 24px;
+  height: 24px;
+}

@@ -1,0 +1,15 @@
+.custom-image-one.block {
+  display: block;
+  overflow: hidden;
+}
+
+.custom-image-one.block picture {
+  display: block;
+  width: 100%;
+}
+
+.custom-image-one.block picture img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
