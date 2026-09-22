@@ -29,11 +29,6 @@
           "configUrl": "https://main--eds-dm-showcase--RitwikSrivastava.aem.page/tools/asset-selector/image.config.json"
         },
         {
-          "component": "custom-asset-namespace:custom-asset-mimetype",
-          "valueType": "string",
-          "name": "imageMimeType"
-        },
-        {
           "component": "text",
           "valueType": "string",
           "name": "imageAlt",

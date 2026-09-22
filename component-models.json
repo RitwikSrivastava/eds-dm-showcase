@@ -161,11 +161,6 @@
         "valueType": "string"
       },
       {
-        "component": "custom-asset-namespace:custom-asset-mimetype",
-        "valueType": "string",
-        "name": "imageMimeType"
-      },
-      {
         "component": "richtext",
         "name": "text",
         "value": "",
@@ -497,11 +492,6 @@
         "configUrl": "https://main--eds-dm-showcase--RitwikSrivastava.aem.page/tools/asset-selector/image.config.json"
       },
       {
-        "component": "custom-asset-namespace:custom-asset-mimetype",
-        "valueType": "string",
-        "name": "imageMimeType"
-      },
-      {
         "component": "text",
         "valueType": "string",
         "name": "imageAlt",
@@ -578,11 +568,6 @@
         "configUrl": "https://main--eds-dm-showcase--RitwikSrivastava.aem.page/tools/asset-selector/image.config.json"
       },
       {
-        "component": "custom-asset-namespace:custom-asset-mimetype",
-        "valueType": "string",
-        "name": "imageMimeType"
-      },
-      {
         "component": "text",
         "valueType": "string",
         "name": "imageAlt",
@@ -622,11 +607,6 @@
         "label": "Background Image",
         "description": "Select a Dynamic Media delivery URL via the custom asset picker.",
         "configUrl": "https://main--eds-dm-showcase--RitwikSrivastava.aem.page/tools/asset-selector/image.config.json"
-      },
-      {
-        "component": "custom-asset-namespace:custom-asset-mimetype",
-        "valueType": "string",
-        "name": "imageMimeType"
       },
       {
         "component": "text",

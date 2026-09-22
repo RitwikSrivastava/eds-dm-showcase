@@ -44,11 +44,6 @@
           "valueType": "string"
         },
         {
-          "component": "custom-asset-namespace:custom-asset-mimetype",
-          "valueType": "string",
-          "name": "imageMimeType"
-        },
-        {
           "component": "richtext",
           "name": "text",
           "value": "",
