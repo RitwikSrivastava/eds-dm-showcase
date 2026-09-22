@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 40" fill="none">
+  <path d="M20 10h16a6 6 0 0 1 0 12h-1a10 10 0 0 1-9.5 7H16A10 10 0 0 1 6 19v-1h14z" fill="#6f4518"/>
+  <path d="M11 6c0 2-2 2-2 4" stroke="#6f4518" stroke-width="2" stroke-linecap="round"/>
+  <path d="M17 6c0 2-2 2-2 4" stroke="#6f4518" stroke-width="2" stroke-linecap="round"/>
+  <text x="44" y="26" font-family="Roboto, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#2c2c2c">Frescopa</text>
+</svg>
