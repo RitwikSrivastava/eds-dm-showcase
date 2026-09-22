@@ -1,15 +1,14 @@
 /**
  * TEMPORARY VENDORED COPY - not a real `git subtree` checkout.
  *
- * Source: https://github.com/adobe-rnd/aem-assets-plugin, branch `anchorcls`
- * (https://github.com/adobe-rnd/aem-assets-plugin/pull/31), commit 902e2d2.
- * That branch isn't merged to `main` yet, so it can't be pulled in via the
- * plugin's normal `git subtree add --prefix plugins/aem-assets-plugin` flow.
+ * Source: https://github.com/adobe-rnd/aem-assets-plugin, branch `main`,
+ * commit 98e08a7 (2026-08-17). The `anchorcls` branch (PR #31) this was
+ * previously vendored from has since merged and been deleted; this is a
+ * manual re-sync to that point on `main`, still not a real subtree.
  *
- * Once PR #31 merges to `main`, delete this folder and re-add the plugin
- * properly with `git subtree add --squash --prefix plugins/aem-assets-plugin
- * git@github.com:adobe-rnd/aem-assets-plugin.git main` (see the plugin's
- * README) so this stops drifting from upstream.
+ * Re-add the plugin properly with `git subtree add --squash --prefix
+ * plugins/aem-assets-plugin git@github.com:adobe-rnd/aem-assets-plugin.git
+ * main` (see the plugin's README) so this stops drifting from upstream.
  */
 
 /**
@@ -121,13 +120,11 @@ function createWebOptimizedDMOpenAPIUrl(url) {
 function getImageSrcUrlAndAlt(element) {
   if (element.tagName === 'A') {
     const href = element.getAttribute('href');
-    // AEM's native rendering for a paired image+imageAlt field puts the alt text as the
-    // anchor's own text content rather than a title attribute (unlike hand-authored links,
-    // where title is the convention) - fall back to it, but only when it's not just the raw
-    // href showing through (e.g. cards' image field, which has no separate alt field at all).
     const text = element.textContent?.trim() || '';
-    const alt = element.getAttribute('title') || (text && text !== href ? text : '');
-    return { url: href, alt };
+    // Fall back to the link's own text as alt text, unless it's just the raw URL
+    // (e.g. a pasted link with no author-supplied text), since that's not usable alt text.
+    const textAlt = text && text !== href ? text : '';
+    return { url: href, alt: element.getAttribute('title') || textAlt };
   }
 
   if (element.tagName === 'IMG') {
@@ -512,11 +509,7 @@ export function createOptimizedPictureForDMOpenAPI(
  * @private
  */
 function isDMOpenAPIUrl(src) {
-  // The path segment before urn:aaid:aem: is normally "adobe/assets", but a project's
-  // asset-domain/vanity-path mapping config can rewrite it to any custom path (or even a
-  // custom domain) - urn:aaid:aem: itself is the unambiguous, non-rewritable marker of an
-  // AEM asset delivery URL, so match on that alone rather than the swappable path prefix.
-  return /^https?:\/\/[^/]+\/.*urn:aaid:aem:/.test(src);
+  return /^(https?:\/\/[^/]+\/(?:.*\/)?assets\/urn:(?:aaid|avid):aem:(.*))/gm.test(src);
 }
 
 /**
@@ -697,6 +690,8 @@ export async function loadBlock(block) {
 // Create an object with the test functions
 const testFunctions = {
   appendQueryParams,
+  getImageSrcUrlAndAlt,
+  isDMOpenAPIUrl,
 };
 
 // Export the object
