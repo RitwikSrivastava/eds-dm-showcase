@@ -3,7 +3,8 @@
 }
 
 .header.block {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: var(--z-index-level-03);
   background-color: #fff;
   border-bottom: var(--border-width-base-1-0) solid var(--color-alias-border-subtle);
