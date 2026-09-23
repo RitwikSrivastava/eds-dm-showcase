@@ -28,6 +28,7 @@
 
 @media (width >= 900px) {
   .teaser.block > .foreground {
+    margin-top: 8%;
     padding: 40px 87px;
   }
 }
@@ -42,17 +43,17 @@
 
 .teaser.block > .foreground > .text > .title h3 {
   margin: 0.25em 0 0.5em;
-  color: var(--frescopa-text, #58181d);
-  font-size: 2.25rem;
+  color: var(--frescopa-text, #fff);
+  font-size: 3.0rem;
   line-height: 1.15;
 }
 
 /* "Dark" theme means the background is dark/photographic - use light text for contrast. */
-.teaser.block.dark > .foreground > .text > .title h3,
+/* .teaser.block.dark > .foreground > .text > .title h3,
 .teaser.block.dark > .foreground > .text > .eyebrow {
   color: #fff;
 }
-
+*/
 .teaser.block > .foreground > .text > .long-description {
   color: var(--frescopa-text, #58181d);
 }
