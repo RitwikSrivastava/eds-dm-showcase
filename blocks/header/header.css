@@ -133,6 +133,10 @@
     font-size: 0.7rem;
   }
 
+  .header.block .top-bar {
+    flex-wrap: wrap;
+  }
+
   .header.block .mobile-nav-toggle {
     display: flex;
   }

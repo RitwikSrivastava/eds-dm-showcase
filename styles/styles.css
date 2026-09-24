@@ -248,6 +248,13 @@ body.appear {
   display: block;
 }
 
+/* Base - Images */
+main img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+}
+
 /* Base - Header, Footer */
 body > header {
   min-height: var(--header-height);
