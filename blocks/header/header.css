@@ -145,6 +145,8 @@
     display: none;
     width: 100%;
     order: 3;
+    margin-top: 0.75rem;
+    border-top: var(--border-width-base-1-0) solid var(--color-alias-border-subtle);
   }
 
   .header.block.mobile-menu-open .navigation-bar {
@@ -153,7 +155,27 @@
 
   .header.block .main-navigation {
     flex-direction: column;
-    gap: var(--spacing-alias-fixed-150);
-    padding: var(--spacing-alias-fixed-150) 0;
+    gap: 0;
+    width: 100%;
+    padding: 0.5rem 0;
+  }
+
+  .header.block .navigation-menu {
+    border-bottom: var(--border-width-base-1-0) solid var(--color-alias-border-subtle);
+  }
+
+  .header.block .navigation-menu:last-child {
+    border-bottom: 0;
+  }
+
+  .header.block .navigation-menu a {
+    display: block;
+    padding: 0.9rem var(--spacing-alias-responsive-layout-margin-navigation);
+    font-size: 1.05rem;
+  }
+
+  .header.block .navigation-menu a:hover {
+    background-color: #f5e9dc;
+    text-decoration: none;
   }
 }
