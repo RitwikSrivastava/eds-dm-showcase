@@ -135,10 +135,29 @@
 
   .header.block .top-bar {
     flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .header.block .header-brand img {
+    height: 1.6rem;
+  }
+
+  .header.block .header-utilities {
+    gap: 0.6rem;
+  }
+
+  .header.block .utility-icon svg {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .header.block .sign-in-link {
+    display: none;
   }
 
   .header.block .mobile-nav-toggle {
     display: flex;
+    flex-shrink: 0;
   }
 
   .header.block .navigation-bar {
