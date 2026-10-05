@@ -75,7 +75,7 @@
           "component": "custom-asset-namespace:custom-asset",
           "name": "image",
           "label": "Image",
-          "configUrl": "https://main--uewithoutsdk--RitwikSrivastava.aem.page/tools/asset-selector/image.config.json",
+          "configUrl": "https://frescopa.scene7.com/tools/asset-selector/image.config.json",
           "valueType": "string"
         },
         {

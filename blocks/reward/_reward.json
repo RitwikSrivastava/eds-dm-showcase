@@ -26,7 +26,7 @@
           "name": "image",
           "label": "Banner Image",
           "description": "Select a Dynamic Media delivery URL via the custom asset picker.",
-          "configUrl": "https://main--eds-dm-showcase--RitwikSrivastava.aem.page/tools/asset-selector/image.config.json"
+          "configUrl": "https://frescopa.scene7.com/tools/asset-selector/image.config.json"
         },
         {
           "component": "text",
