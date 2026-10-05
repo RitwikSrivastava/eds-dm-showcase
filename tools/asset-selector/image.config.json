@@ -10,6 +10,11 @@
     "expiryOptions": {
         "allowSelectionAndDrag": false
     },
+    "alwaysUseDMDelivery": true,
+    "vanityPath": "custom",
+    "assetDomainMapping": {
+      "delivery-p66302-e574366.adobeaemcloud.com": "frescopa.scene7.com"
+    },
     "filterSchema": [
       {
         "fields": [

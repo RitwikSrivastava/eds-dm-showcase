@@ -28,6 +28,7 @@ export default async function assetsInit() {
     // still needs its own entry here to be picked up as an external DM image at all.
     externalImageUrlPrefixes: [
       ['https://delivery-p66302-e574366.adobeaemcloud.com/', createOptimizedPictureForDMOpenAPI],
+      ['https://frescopa.scene7.com/custom/assets/', createOptimizedPictureForDMOpenAPI],
     ],
   };
 }
