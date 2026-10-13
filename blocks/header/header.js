@@ -34,19 +34,64 @@ const UTILITY_ICONS = [
   },
 ];
 
+async function updateAccountControls(signIn) {
+  try {
+    const response = await fetch('/auth/session', {
+      credentials: 'same-origin',
+      cache: 'no-store',
+    });
+    if (!response.ok) throw new Error(`Session request returned ${response.status}`);
+    const { user } = await response.json();
+    if (!user) return;
+
+    const greeting = createElementWithClasses('span', 'account-label');
+    greeting.textContent = `Hi ${user.name.charAt(0).toUpperCase()}${user.name.slice(1)}`;
+    const logout = createElementWithClasses('button', 'sign-in-link', 'logout-button');
+    logout.type = 'button';
+    logout.textContent = 'Log out';
+    const error = createElementWithClasses('span', 'account-error');
+    error.setAttribute('role', 'alert');
+    error.hidden = true;
+    logout.addEventListener('click', async () => {
+      logout.disabled = true;
+      error.hidden = true;
+      try {
+        const result = await fetch('/auth/logout', {
+          method: 'POST',
+          credentials: 'same-origin',
+          cache: 'no-store',
+        });
+        if (!result.ok) throw new Error(`Logout request returned ${result.status}`);
+        window.location.assign('/login');
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error('Logout failed', err);
+        error.textContent = 'Logout failed. Please try again.';
+        error.hidden = false;
+        logout.disabled = false;
+      }
+    });
+    signIn.replaceWith(greeting, logout, error);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('Session request failed', err);
+  }
+}
+
 function buildUtilityIcons() {
   const wrapper = createElementWithClasses('div', 'header-utilities');
   UTILITY_ICONS.forEach(({ name, label, path }) => {
     const link = createElementWithClasses('a', 'utility-icon', `utility-icon-${name}`);
-    link.href = '#';
+    link.href = name === 'account' ? '/login' : '#';
     link.setAttribute('aria-label', label);
     link.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${path}"/></svg>`;
     wrapper.append(link);
   });
   const signIn = createElementWithClasses('a', 'sign-in-link');
-  signIn.href = '#';
+  signIn.href = '/login';
   signIn.textContent = 'Sign in';
   wrapper.append(signIn);
+  updateAccountControls(signIn);
   return wrapper;
 }
 

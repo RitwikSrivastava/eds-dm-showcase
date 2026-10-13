@@ -117,11 +117,28 @@
   height: 1.4rem;
 }
 
-.header.block .sign-in-link {
+.header.block .sign-in-link,
+.header.block .account-label {
   color: #2c2c2c;
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
+}
+
+.header.block .logout-button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.header.block .account-error {
+  color: #a02b20;
+  font-size: 0.8rem;
 }
 
 .header.block .sign-in-link:hover {
@@ -144,6 +161,7 @@
 
   .header.block .header-utilities {
     gap: 0.6rem;
+    flex-wrap: wrap;
   }
 
   .header.block .utility-icon svg {
@@ -151,8 +169,9 @@
     height: 1.15rem;
   }
 
-  .header.block .sign-in-link {
-    display: none;
+  .header.block .sign-in-link,
+  .header.block .account-label {
+    font-size: 0.8rem;
   }
 
   .header.block .mobile-nav-toggle {

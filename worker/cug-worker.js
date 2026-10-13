@@ -3,20 +3,34 @@
  *
  * Route it in front of the EDS site, e.g. www.example.com/*.
  * Variables: ORIGIN_HOST (…aem.live host), DELIVERY_HOST (delivery-pXXX-eYYY.adobeaemcloud.com),
- *   TOKEN_API_URL (…/adobe/assets/token), ROUTING_HEADER (x-adobe-routing value, per program/env),
  *   LOGIN_PATH (optional fallback when x-aem-cug-login-path is absent, default /login).
- * Secret: IMS_ADMIN_TOKEN (wrangler secret put IMS_ADMIN_TOKEN).
+ * Secrets: IMS_CLIENT_ID, IMS_CLIENT_SECRET.
  *
- * POC only: admin/admin is hard-coded and the group cookie is unsigned (forgeable).
+ * POC only: users are hard-coded and the group cookie is unsigned (forgeable).
  */
 
-const GROUP = 'partners';
-const GROUP_COOKIE = 'cug_groups';
-const TOKEN_COOKIE = 'asset_token';
-const GROUP_COOKIE_TTL = 3600;
+// username -> { password, group }
+const USERS = {
+  partner: { password: 'partner', group: 'partners' },
+  distributor: { password: 'distributor', group: 'distributors' },
+  sales: { password: 'sales', group: 'sales' },
+  admin: { password: 'admin', group: 'partners' },
+};
+
+const IMS_TOKEN_URL = 'https://ims-na1.adobelogin.com/ims/token/v3';
+const IMS_SCOPE = 'openid,AdobeID,additional_info.projectedProductContext,aem.assets.author,aem.folders';
+const USER_COOKIE = 'cug_user';
+const TOKEN_COOKIE = 'polaris-delivery-token';
+const TOKEN_PREFIX = 'sd:';
+const SESSION_TTL = 3600;
 const TOKEN_TTL = 3600;
 // Header name from the aem-assets-plugin secure-assets block; verify against ABAC delivery docs.
 const DELIVERY_TOKEN_HEADER = 'x-asset-delivery-token';
+// Bump to orphan edge-cache entries stored before caching was bypassed; workers.dev has no purge.
+const CACHE_VERSION = '1';
+
+// Per-isolate cache of the IMS service token.
+let imsCache = { token: null, expires: 0 };
 
 function getCookie(request, name) {
   const header = request.headers.get('Cookie') || '';
@@ -24,12 +38,22 @@ function getCookie(request, name) {
   return match ? decodeURIComponent(match.slice(name.length + 1)) : null;
 }
 
-function userGroups(request) {
-  return (getCookie(request, GROUP_COOKIE) || '').split(',').filter(Boolean);
+// Groups always come from the USERS table, never from a client-supplied cookie value.
+function currentUser(request) {
+  const name = getCookie(request, USER_COOKIE);
+  if (!name || !Object.prototype.hasOwnProperty.call(USERS, name)) return null;
+  return { name, group: USERS[name].group };
 }
 
-function cookie(name, value, maxAge) {
-  return `${name}=${encodeURIComponent(value)}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${maxAge}`;
+function userGroups(request) {
+  const user = currentUser(request);
+  return user ? [user.group] : [];
+}
+
+// Pass raw=true to keep the value literal (e.g. the sd: prefix) instead of URI-encoding it.
+function cookie(name, value, maxAge, raw = false) {
+  const v = raw ? value : encodeURIComponent(value);
+  return `${name}=${v}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${maxAge}`;
 }
 
 async function handleLogin(request) {
@@ -39,32 +63,58 @@ async function handleLogin(request) {
   } catch (e) {
     return new Response('Bad request', { status: 400 });
   }
-  if (creds.username !== 'admin' || creds.password !== 'admin') {
+  const user = Object.prototype.hasOwnProperty.call(USERS, creds.username)
+    ? USERS[creds.username] : null;
+  if (!user || user.password !== creds.password) {
     return new Response('Unauthorized', { status: 401 });
   }
-  return new Response(null, {
-    status: 204,
-    headers: { 'Set-Cookie': cookie(GROUP_COOKIE, GROUP, GROUP_COOKIE_TTL), 'Cache-Control': 'no-store' },
-  });
+  const headers = new Headers({ 'Cache-Control': 'no-store' });
+  headers.append('Set-Cookie', cookie(USER_COOKIE, creds.username, SESSION_TTL));
+  // Drop any token minted for a previous user so a new one is minted for this user's group.
+  headers.append('Set-Cookie', cookie(TOKEN_COOKIE, '', 0));
+  return new Response(null, { status: 204, headers });
 }
 
-async function mintAssetToken(env) {
-  const resp = await fetch(env.TOKEN_API_URL, {
+async function getImsToken(env) {
+  if (imsCache.token && Date.now() < imsCache.expires) return imsCache.token;
+  const resp = await fetch(IMS_TOKEN_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'client_credentials',
+      client_id: env.IMS_CLIENT_ID,
+      client_secret: env.IMS_CLIENT_SECRET,
+      scope: IMS_SCOPE,
+    }),
+  });
+  if (!resp.ok) throw new Error(`IMS token returned ${resp.status}`);
+  const data = await resp.json();
+  // expires_in may be seconds or milliseconds depending on the endpoint.
+  const ttlSec = data.expires_in > 100000 ? data.expires_in / 1000 : data.expires_in;
+  imsCache = { token: data.access_token, expires: Date.now() + (ttlSec - 60) * 1000 };
+  return imsCache.token;
+}
+
+async function mintAssetToken(env, username, groups) {
+  const imsToken = await getImsToken(env);
+  const resp = await fetch(`https://${env.DELIVERY_HOST}/adobe/assets/token`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${env.IMS_ADMIN_TOKEN}`,
-      'x-adobe-routing': env.ROUTING_HEADER,
+      Authorization: `Bearer ${imsToken}`,
     },
     body: JSON.stringify({
-      subjectAttributes: { id: GROUP, username: GROUP, groups: [GROUP] },
+      subjectAttributes: { id: username, username, groups },
       validFor: TOKEN_TTL,
     }),
   });
   if (!resp.ok) throw new Error(`Token API returned ${resp.status}`);
   const data = await resp.json();
-  // Response shape is not documented here; adjust if the API names the field differently.
-  return data.token || data.access_token;
+  const token = data.token || data.access_token;
+  if (!token) {
+    throw new Error(`Token API response has no token field, keys: ${Object.keys(data)}`);
+  }
+  return token;
 }
 
 function proxyToOrigin(request, env, url) {
@@ -108,7 +158,12 @@ async function handleProtectedPage(request, env, url, originResp) {
 
   if (!getCookie(request, TOKEN_COOKIE)) {
     try {
-      resp.headers.append('Set-Cookie', cookie(TOKEN_COOKIE, await mintAssetToken(env), TOKEN_TTL - 60));
+      const { name } = currentUser(request);
+      const token = await mintAssetToken(env, name, groups);
+      resp.headers.append(
+        'Set-Cookie',
+        cookie(TOKEN_COOKIE, `${TOKEN_PREFIX}${token}`, TOKEN_TTL - 60, true),
+      );
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error('Asset token mint failed', e);
@@ -118,32 +173,48 @@ async function handleProtectedPage(request, env, url, originResp) {
 }
 
 async function handleAsset(request, env, url) {
-  const token = getCookie(request, TOKEN_COOKIE);
+  const cookieValue = getCookie(request, TOKEN_COOKIE);
   const headers = { Accept: request.headers.get('Accept') || '*/*' };
   // Public assets pass through; delivery enforces ABAC when the token is missing or invalid.
-  if (token) headers[DELIVERY_TOKEN_HEADER] = token;
+  if (cookieValue) {
+    headers.Cookie = `${TOKEN_COOKIE}=${cookieValue}`;
+    headers[DELIVERY_TOKEN_HEADER] = cookieValue.startsWith(TOKEN_PREFIX)
+      ? cookieValue.slice(TOKEN_PREFIX.length) : cookieValue;
+  }
   // Same-site URLs use /custom/assets/; the delivery host serves it at /adobe/assets/.
   const path = url.pathname.replace(/^\/custom\/assets\//, '/adobe/assets/');
   const target = new URL(path + url.search, `https://${env.DELIVERY_HOST}`);
-  const resp = await fetch(target, { method: 'GET', headers });
+  target.searchParams.set('_cv', CACHE_VERSION);
+  // Edge cache is keyed by URL only, so a stored fallback would be served to token holders too.
+  const resp = await fetch(target, { method: 'GET', headers, cf: { cacheTtl: -1 } });
   const out = new Response(resp.body, resp);
-  if (token) out.headers.set('Cache-Control', 'private, no-store');
+  // Browser cache must also key on the cookie, or an earlier fallback is reused after login.
+  out.headers.append('Vary', 'Cookie');
+  if (cookieValue) out.headers.set('Cache-Control', 'private, no-store');
   return out;
 }
 
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (
-      url.hostname === 'eds-dm-showcase.simply-ritwik.workers.dev'
-      && url.pathname.startsWith('/adobe/assets/')
-    ) {
-      return handleAsset(request, env, url);
-    }
     if (url.pathname === '/auth/login' && request.method === 'POST') {
       return handleLogin(request);
     }
-    if (url.pathname.startsWith('/custom/assets/')) {
+    if (url.pathname === '/auth/session' && request.method === 'GET') {
+      return Response.json({ user: currentUser(request) }, {
+        headers: { 'Cache-Control': 'no-store' },
+      });
+    }
+    if (url.pathname === '/auth/logout' && request.method === 'POST') {
+      const headers = new Headers({ 'Cache-Control': 'no-store' });
+      headers.append('Set-Cookie', cookie(USER_COOKIE, '', 0));
+      headers.append('Set-Cookie', cookie(TOKEN_COOKIE, '', 0));
+      return new Response(null, { status: 204, headers });
+    }
+    if (
+      url.pathname.startsWith('/custom/assets/')
+      || url.pathname.startsWith('/adobe/assets/')
+    ) {
       return handleAsset(request, env, url);
     }
     const originResp = await proxyToOrigin(request, env, url);
