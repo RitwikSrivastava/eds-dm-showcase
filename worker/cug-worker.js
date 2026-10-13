@@ -3,14 +3,14 @@
  *
  * Route it in front of the EDS site, e.g. www.example.com/*.
  * Variables: ORIGIN_HOST (…aem.live host), DELIVERY_HOST (delivery-pXXX-eYYY.adobeaemcloud.com),
- *   TOKEN_API_URL (…/adobe/assets/token), ROUTING_HEADER (x-adobe-routing value, per program/env).
+ *   TOKEN_API_URL (…/adobe/assets/token), ROUTING_HEADER (x-adobe-routing value, per program/env),
+ *   LOGIN_PATH (optional fallback when x-aem-cug-login-path is absent, default /login).
  * Secret: IMS_ADMIN_TOKEN (wrangler secret put IMS_ADMIN_TOKEN).
  *
  * POC only: admin/admin is hard-coded and the group cookie is unsigned (forgeable).
  */
 
 const GROUP = 'partners';
-const PROTECTED = /^\/subscription(\/|$)/;
 const GROUP_COOKIE = 'cug_groups';
 const TOKEN_COOKIE = 'asset_token';
 const GROUP_COOKIE_TTL = 3600;
@@ -24,8 +24,8 @@ function getCookie(request, name) {
   return match ? decodeURIComponent(match.slice(name.length + 1)) : null;
 }
 
-function hasGroup(request) {
-  return (getCookie(request, GROUP_COOKIE) || '').split(',').includes(GROUP);
+function userGroups(request) {
+  return (getCookie(request, GROUP_COOKIE) || '').split(',').filter(Boolean);
 }
 
 function cookie(name, value, maxAge) {
@@ -76,14 +76,34 @@ function proxyToOrigin(request, env, url) {
   return fetch(new Request(target, { method: request.method, headers, redirect: 'manual' }));
 }
 
-async function handleProtectedPage(request, env, url) {
-  if (!hasGroup(request)) {
-    const redirect = encodeURIComponent(url.pathname + url.search);
-    return Response.redirect(`${url.origin}/login?redirect=${redirect}`, 302);
+function stripCugHeaders(originResp) {
+  const resp = new Response(originResp.body, originResp);
+  [...resp.headers.keys()]
+    .filter((name) => name.startsWith('x-aem-cug-'))
+    .forEach((name) => resp.headers.delete(name));
+  return resp;
+}
+
+async function handleProtectedPage(request, env, url, originResp) {
+  const required = (originResp.headers.get('x-aem-cug-groups') || '')
+    .split(',').map((g) => g.trim()).filter(Boolean);
+  const groups = userGroups(request);
+
+  if (!groups.length) {
+    const loginUrl = new URL(
+      originResp.headers.get('x-aem-cug-login-path') || env.LOGIN_PATH || '/login',
+      url.origin,
+    );
+    if (loginUrl.origin === url.origin) {
+      loginUrl.searchParams.set('redirect', url.pathname + url.search);
+    }
+    return Response.redirect(loginUrl.toString(), 302);
+  }
+  if (required.length && !required.some((g) => groups.includes(g))) {
+    return new Response('Forbidden', { status: 403 });
   }
 
-  const originResp = await proxyToOrigin(request, env, url);
-  const resp = new Response(originResp.body, originResp);
+  const resp = stripCugHeaders(originResp);
   resp.headers.set('Cache-Control', 'private, no-store');
 
   if (!getCookie(request, TOKEN_COOKIE)) {
@@ -114,16 +134,22 @@ async function handleAsset(request, env, url) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-
+    if (
+      url.hostname === 'eds-dm-showcase.simply-ritwik.workers.dev'
+      && url.pathname.startsWith('/adobe/assets/')
+    ) {
+      return handleAsset(request, env, url);
+    }
     if (url.pathname === '/auth/login' && request.method === 'POST') {
       return handleLogin(request);
     }
     if (url.pathname.startsWith('/custom/assets/')) {
       return handleAsset(request, env, url);
     }
-    if (PROTECTED.test(url.pathname)) {
-      return handleProtectedPage(request, env, url);
+    const originResp = await proxyToOrigin(request, env, url);
+    if (originResp.headers.get('x-aem-cug-required') === 'true') {
+      return handleProtectedPage(request, env, url, originResp);
     }
-    return proxyToOrigin(request, env, url);
+    return stripCugHeaders(originResp);
   },
 };
