@@ -1,0 +1,25 @@
+.login .login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.login .login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.login .login-field input {
+  padding: 8px 12px;
+  border: 1px solid currentcolor;
+  border-radius: 4px;
+  font: inherit;
+}
+
+.login .login-error {
+  margin: 0;
+  color: #d31510;
+}
